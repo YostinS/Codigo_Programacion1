@@ -56,7 +56,10 @@ while (ejecutandose)
                 }
             case 4:
                 {
-                    
+                    Console.Write("Ingrese el ID del contacto a eliminar: ");
+                    var id = int.Parse(Console.ReadLine()); 
+
+                    EliminarContacto(id, nombres, apellidos, telefonos, direcciones, edades, contactosDeEmergencia);
                     break;
                 }
             case 5:
@@ -211,138 +214,49 @@ static void ActualizarContacto(int id, Dictionary<int, string> nombres, Dictiona
             }
             else
             {
-                Console.WriteLine("ERROR: Debe ingresar un número válido.");
+                Console.WriteLine("ERROR: Debe ingresar un numero valido.");
             }
             break;
         default:
-            Console.WriteLine("Opción no válida.");
+            Console.WriteLine("Opción no valida.");
             break;
     }
 }
-/*
-static void ActualizarContacto(int idIndicado, int id, Dictionary<int, string> nombres, Dictionary<int, string> apellidos, Dictionary<int, string> telefonos, Dictionary<int, string> direcciones, Dictionary<int, int> edades, Dictionary<int, bool> contactosDeEmergencia)
+static void EliminarContacto(int id, Dictionary<int, string> nombres, Dictionary<int, string> apellidos, Dictionary<int, string> telefonos, Dictionary<int, string> direcciones, Dictionary<int, int> edades, Dictionary<int, bool> contactosDeEmergencia)
 {
+    if (!nombres.ContainsKey(id))
+    {
+        Console.WriteLine("ERROR: El ID ingresado no existe.");
+        return;
+    }
     
-    Console.WriteLine("Que desea actualiazar");
-    Console.WriteLine("1. Nombre");
-    Console.WriteLine("2. Apellido");
-    Console.WriteLine("3. Telefono");
-    Console.WriteLine("4. Direccion");
-    Console.WriteLine("5. Edad");
-    //Console.WriteLine("6. Es contacto de emergencia?");
-    Console.Write("Digite las opcion");
-    int OpcionesActualizar = 0;
-    OpcionesActualizar = int.Parse(Console.ReadLine());
-
-    switch (OpcionesActualizar)
+    Console.WriteLine("Confirma ID: ");
+    int idSeleccionado = int.Parse(Console.ReadLine()); 
+    Console.WriteLine("Seguro que desea eliminar? 1. Si, 2. No");
+    if (idSeleccionado == id)
     {
-        case 1:
-            {
-                Console.Write("Digite el nuevo Nombre: ");
-                nombres[id] = Console.ReadLine();
-                Console.WriteLine("Nombre actualizado con éxito");
-                break;
+        int opcion = Convert.ToInt32(Console.ReadLine());
+        if (opcion == 1)
+        {
+            var nombreSeleccionado = nombres[idSeleccionado];
+            var apellidoSeleccionado = apellidos[idSeleccionado];
+            var telefonoSeleccionado = telefonos[idSeleccionado];
+            string direccionSeleccionada = direcciones[idSeleccionado];
+            var edadSeleccionada = edades[idSeleccionado];
+            var contactoEmergencia = contactosDeEmergencia[idSeleccionado];
 
-            }
-        case 2:
-            {
-                Console.Write("Digite el nuevo Apellido: ");
-                apellidos[id] = Console.ReadLine();
-                Console.WriteLine("Apellido actualizado con éxito");
-                break;
-            }
-        case 3:
-            {
-                Console.Write("Digite el nuevo Telefono: ");
-                telefonos[id] = Console.ReadLine();
-                Console.WriteLine("Telefono actualizado con éxito");
-                break;
-            }
-        case 4:
-            {
-                Console.Write("Digite el nueva Direcion: ");
-                direcciones[id] = Console.ReadLine();
-                Console.WriteLine("Direccion actualizada con éxito");
-                break;
-            }
-        case 5:
-            {
-                Console.Write("Digite la nueva Edad: ");
-                edades[id] = int.Parse(Console.ReadLine());
-                Console.WriteLine("Edad actualizada con éxito");
-                break;
-            }
-        case 6:
-            {
-                DeterminarSiEsContactoDeEmergencia();
-                Console.WriteLine("Contacto de emergencia actualizado con éxito");
-                break;
-            }
+            nombres.Remove(idSeleccionado);
+            apellidos.Remove(idSeleccionado);
+            telefonos.Remove(idSeleccionado);
+            direcciones.Remove(idSeleccionado);
+            edades.Remove(idSeleccionado);
+            contactoEmergencia = false;
+        }
     }
-}
-/*
-static void ActualizarContacto( string apellido, string? tel, string? dir, int edad, string contactoDeEmergencia, int id)
-{
-    Console.WriteLine("Que desea actualiazar");
-    Console.WriteLine("1. Nombre");
-    Console.WriteLine("2. Apellido");
-    Console.WriteLine("3. Telefono");
-    Console.WriteLine("4. Direccion");
-    Console.WriteLine("5. Edad");
-    Console.WriteLine("6. Es contacto de emergencia?");
-    Console.Write("Digite las opcion");
-    int OpcionesActualizar = 0;
-    OpcionesActualizar = int.Parse(Console.ReadLine());
-
-    switch (OpcionesActualizar) 
+    else
     {
-        case 1: CambiarNombre(); 
-            break;
-        case 2: CambiarApellido();
-            break;
-        case 3: CambiarTelefono();
-            break;
-        case 4: CambiarDireccion();
-            break;
-        case 5: CambiarEdad();
-            break;
-        case 6: CambiarContactoDeEmergencia();
-            break;
-        default:
-            Console.WriteLine("Eres bruto o que");
-            break;
+        Console.WriteLine("El ID no coincide");
     }
    
 }
-*/
-/*
-static void CambiarNombre()
- {
-    
-    Console.Write("Digite el nuevo nombre");
-    string Actualizacion = Console.ReadLine();
-    Actualizacion.Replace(nombres, string.Empty);
-    Console.WriteLine("Nombre actualizado con exito");
 
- }
- static void CambiarApellido(string apellido) 
- {
-     
- }
-static void CambiarTelefono()
-{
-
-}
-static void CambiarDireccion()
-{
-
-}
-static void CambiarEdad()
-{
-
-}
-static void CambiarContactoDeEmergencia()
-{
-
-}
-*/
